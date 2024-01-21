@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # local
     "user.apps.UserConfig",
     "owner.apps.OwnerConfig",
+    "breed.apps.BreedConfig",
 ]
 
 MIDDLEWARE = [
