@@ -57,3 +57,30 @@ class Cattle(models.Model):
 
     def __str__(self):
         return self.ear_tag_number
+
+
+class BreedingRecord(models.Model):
+    bull = models.ForeignKey(
+        Cattle,
+        related_name="breeding_bull",
+        on_delete=models.CASCADE,
+        verbose_name="نر",
+    )
+    cow = models.ForeignKey(
+        Cattle,
+        related_name="breeding_cow",
+        on_delete=models.CASCADE,
+        verbose_name="ماده",
+    )
+    breeding_date = models.DateField(verbose_name="تاریخ پرورش")
+    expected_calving_date = models.DateField(verbose_name="تاریخ زایمان مورد انتظار")
+    actual_calving_date = models.DateField(
+        null=True, blank=True, verbose_name="تاریخ زایمان واقعی"
+    )
+    breeding_method = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name="روش پرورش"
+    )
+    notes = models.TextField(null=True, blank=True, verbose_name="یادداشت")
+
+    def __str__(self):
+        return f"{self.cow} x {self.bull} on {self.breeding_date}"
