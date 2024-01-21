@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "user.apps.UserConfig",
     "owner.apps.OwnerConfig",
     "breed.apps.BreedConfig",
+    "cattle.apps.CattleConfig",
 ]
 
 MIDDLEWARE = [
