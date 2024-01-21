@@ -84,3 +84,18 @@ class BreedingRecord(models.Model):
 
     def __str__(self):
         return f"{self.cow} x {self.bull} on {self.breeding_date}"
+
+
+class HealthRecord(models.Model):
+    cattle = models.ForeignKey(Cattle, on_delete=models.CASCADE, verbose_name="گاو")
+    checkup_date = models.DateField(verbose_name="تاریخ چک")
+    health_notes = models.TextField(verbose_name="یادداشت")
+    vaccinations = models.TextField(null=True, blank=True, verbose_name="واکسیناسیون")
+    treatments = models.TextField(null=True, blank=True, verbose_name="درمان ها")
+    diagnosis = models.TextField(null=True, blank=True, verbose_name="تشخیص")
+    veterinarian = models.CharField(
+        max_length=255, null=True, blank=True, verbose_name="دامپزشک"
+    )
+
+    def __str__(self):
+        return f"{self.cattle} - {self.checkup_date}"
