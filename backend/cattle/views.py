@@ -1,3 +1,22 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Cattle, BreedingRecord, HealthRecord
+from .serializers import (
+    CattleSerializer,
+    BreedingRecordSerializer,
+    HealthRecordSerializer,
+)
 
-# Create your views here.
+
+class CattleViewSet(viewsets.ModelViewSet):
+    queryset = Cattle.objects.all()
+    serializer_class = CattleSerializer
+
+
+class BreedingRecordViewSet(viewsets.ModelViewSet):
+    queryset = BreedingRecord.objects.all()
+    serializer_class = BreedingRecordSerializer
+
+
+class HealthRecordViewSet(viewsets.ModelViewSet):
+    queryset = HealthRecord.objects.all()
+    serializer_class = HealthRecordSerializer
