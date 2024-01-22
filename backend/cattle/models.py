@@ -1,5 +1,6 @@
 from django.db import models
 from breed.models import Breed
+from owner.models import Owner
 
 
 # Create your models here.
@@ -36,7 +37,7 @@ class Cattle(models.Model):
     height = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True, verbose_name="قد"
     )
-    owner = models.ForeignKey("Owner", on_delete=models.CASCADE, verbose_name="صاحب")
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE, verbose_name="صاحب")
     photo = models.ImageField(
         upload_to="cattle_photos/", null=True, blank=True, verbose_name="عکس"
     )

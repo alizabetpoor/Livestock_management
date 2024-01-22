@@ -10,7 +10,6 @@ class Cattle_Admin(admin.ModelAdmin):
         "gender",
         "date_of_birth",
         "weight",
-        "BreedingRecord",
     )
 
 
