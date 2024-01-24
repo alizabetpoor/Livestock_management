@@ -22,9 +22,11 @@ from rest_framework.routers import DefaultRouter
 from owner.views import OwnerViewSet
 from cattle.views import CattleViewSet, BreedingRecordViewSet, HealthRecordViewSet
 from breed.views import BreedViewSet
+from jwtConfig.views import MyTokenObtainPairView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
+from rest_framework_simplejwt import views
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -51,6 +53,16 @@ urlpatterns = (
     [
         path("admin/", admin.site.urls),
         path("api/v1/", include(router.urls)),
+        path("api/v1/auth/", include("djoser.urls")),
+        re_path(
+            r"^auth/jwt/create/?", MyTokenObtainPairView.as_view(), name="jwt-create"
+        ),
+        re_path(
+            r"^auth/jwt/refresh/?", views.TokenRefreshView.as_view(), name="jwt-refresh"
+        ),
+        re_path(
+            r"^auth/jwt/verify/?", views.TokenVerifyView.as_view(), name="jwt-verify"
+        ),
         re_path(
             r"^api/v1/swagger(?P<format>\.json|\.yaml)$",
             schema_view.without_ui(cache_timeout=0),
