@@ -43,7 +43,7 @@ schema_view = get_schema_view(
 
 
 router = DefaultRouter()
-router.register(r"CattleViewSet", CattleViewSet)
+router.register(r"cattle", CattleViewSet)
 router.register(r"breeds", BreedViewSet)
 router.register(r"breeding_records", BreedingRecordViewSet)
 router.register(r"health_records", HealthRecordViewSet)
@@ -55,13 +55,19 @@ urlpatterns = (
         path("api/v1/", include(router.urls)),
         path("api/v1/auth/", include("djoser.urls")),
         re_path(
-            r"^auth/jwt/create/?", MyTokenObtainPairView.as_view(), name="jwt-create"
+            r"^api/v1/auth/jwt/create/?",
+            MyTokenObtainPairView.as_view(),
+            name="jwt-create",
         ),
         re_path(
-            r"^auth/jwt/refresh/?", views.TokenRefreshView.as_view(), name="jwt-refresh"
+            r"^api/v1/auth/jwt/refresh/?",
+            views.TokenRefreshView.as_view(),
+            name="jwt-refresh",
         ),
         re_path(
-            r"^auth/jwt/verify/?", views.TokenVerifyView.as_view(), name="jwt-verify"
+            r"^api/v1/auth/jwt/verify/?",
+            views.TokenVerifyView.as_view(),
+            name="jwt-verify",
         ),
         re_path(
             r"^api/v1/swagger(?P<format>\.json|\.yaml)$",
