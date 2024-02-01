@@ -7,7 +7,8 @@ interface ButtonProps {
   raduis?: string;
   icon?: ReactNode;
   text: string;
-  link: string;
+  link?: string;
+  style?: string;
 }
 
 const Button = ({
@@ -27,7 +28,7 @@ const Button = ({
             raduis ? raduis : 'rounded-md'
           } ${
             bgColor ? bgColor : 'bg-meta-3'
-          } py-4 px-10 text-center font-medium ${
+          } py-2 px-10 text-center font-medium ${
             textColor ? textColor : 'text-white'
           } hover:bg-opacity-90 lg:px-8 xl:px-10${icon ? ' gap-2.5' : ''}`}
         >
@@ -40,7 +41,7 @@ const Button = ({
             raduis ? raduis : 'rounded-md'
           } ${
             bgColor ? bgColor : 'bg-meta-3'
-          } py-4 px-10 text-center font-medium ${
+          } py-2 px-10 text-center font-medium ${
             textColor ? textColor : 'text-white'
           } hover:bg-opacity-90 lg:px-8 xl:px-10${icon ? ' gap-2.5' : ''}`}
         >

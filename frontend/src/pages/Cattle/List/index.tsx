@@ -1,10 +1,10 @@
-import Breadcrumb from '../components/Breadcrumb';
-import Table from '../common/Table';
-import UserService from '../services/user.service';
+import Breadcrumb from '../../../components/Breadcrumb';
+import Table from '../../../common/Table';
+import UserService from '../../../services/user.service';
 import { useEffect, useState } from 'react';
-import Loader from '../common/Loader';
-import { CattleType } from '../interfaces/cattle';
-import { PaginationType } from '../interfaces/pagination';
+import Loader from '../../../common/Loader';
+import { CattleType } from '../../../interfaces/cattle';
+import { PaginationType } from '../../../interfaces/pagination';
 
 interface tableDataType {
   [key: string]: string;
@@ -43,7 +43,7 @@ const columnsName = [
   'gender_display',
 ];
 
-const Tables = () => {
+const CattleList = () => {
   const [cattleData, setCattleData] = useState<null | CattleType[]>(null);
   const [paginationData, setPaginationData] = useState<null | PaginationType>(
     null,
@@ -90,4 +90,4 @@ const Tables = () => {
   );
 };
 
-export default Tables;
+export default CattleList;

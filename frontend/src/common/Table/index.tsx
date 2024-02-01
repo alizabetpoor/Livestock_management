@@ -84,12 +84,16 @@ const Table = ({
                         {columnName.indexOf('.') !== -1
                           ? info[columnName.split('.')[0]][
                               columnName.split('.')[1] as any
-                            ]
-                          : info[columnName]}
+                            ] || '-'
+                          : info[columnName] || '-'}
                       </p>
                     ) : (
                       <h5 className="font-medium text-black dark:text-white">
-                        {info[columnName]}
+                        {columnName.indexOf('.') !== -1
+                          ? info[columnName.split('.')[0]][
+                              columnName.split('.')[1] as any
+                            ] || '-'
+                          : info[columnName] || '-'}
                       </h5>
                     )}
                   </td>
@@ -102,13 +106,13 @@ const Table = ({
                   <div className="flex items-center space-x-3.5 space-x-reverse">
                     <Link
                       className="hover:text-primary"
-                      to={`${entityName}/view/${info.id}`}
+                      to={`/${entityName}/view/${info.id}`}
                     >
                       <EyeIcon />
                     </Link>
                     <Link
                       className="hover:text-primary"
-                      to={`${entityName}/edit/${info.id}`}
+                      to={`/${entityName}/edit/${info.id}`}
                     >
                       <FaRegEdit />
                     </Link>

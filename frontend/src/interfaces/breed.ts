@@ -1,3 +1,10 @@
+export interface BreedResponseType {
+  count: number;
+  next: string;
+  previous: string;
+  results: BreedType[];
+}
+
 export interface BreedType {
   id: number;
   name: string;

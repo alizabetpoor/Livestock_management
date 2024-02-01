@@ -1,3 +1,10 @@
+export interface OwnerResponseType {
+  count: number;
+  next: string;
+  previous: string;
+  results: OwnerType[];
+}
+
 export interface OwnerType {
   id: number;
   first_name: string;
