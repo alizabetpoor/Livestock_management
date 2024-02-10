@@ -14,13 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, re_path, include
 from rest_framework.routers import DefaultRouter
 from owner.views import OwnerViewSet
-from cattle.views import CattleViewSet, BreedingRecordViewSet, HealthRecordViewSet
+from cattle.views import (
+    CattleViewSet,
+    BreedingRecordViewSet,
+    HealthRecordViewSet,
+    CattleAggregateView,
+    CattleChartView,
+)
 from breed.views import BreedViewSet
 from jwtConfig.views import MyTokenObtainPairView
 from drf_yasg.views import get_schema_view
@@ -51,6 +58,16 @@ router.register(r"owners", OwnerViewSet)
 
 urlpatterns = (
     [
+        path(
+            "api/v1/cattles/info/",
+            CattleAggregateView.as_view(),
+            name="cattle-aggregates",
+        ),
+        path(
+            "api/v1/cattles/chart-data/",
+            CattleChartView.as_view(),
+            name="cattle-chart-data",
+        ),
         path("admin/", admin.site.urls),
         path("api/v1/", include(router.urls)),
         path("api/v1/auth/", include("djoser.urls")),

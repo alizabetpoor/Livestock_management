@@ -12,8 +12,8 @@ const BreedingRecordView = () => {
   const [breedingRecordData, setBreedingRecordData] =
     useState<null | tableDataType>(null);
   const fields = [
-    { name: 'bull', label: 'پدر' },
-    { name: 'cow', label: 'مادر' },
+    { name: 'bull.ear_tag_number', label: 'پدر' },
+    { name: 'cow.ear_tag_number', label: 'مادر' },
     { name: 'breeding_date', label: 'تاریخ پرورش' },
     { name: 'expected_calving_date', label: 'تاریخ زایمان مورد انتظار' },
     { name: 'actual_calving_date', label: 'تاریخ زایمان واقعی' },

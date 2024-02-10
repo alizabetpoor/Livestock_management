@@ -35,7 +35,7 @@ const BreedList = () => {
   }, []);
   return (
     <>
-      <Breadcrumb pageName="لیست گاو ها" />
+      <Breadcrumb pageName="لیست نژاد ها" />
 
       <div className="flex flex-col gap-10">
         {breedData ? (

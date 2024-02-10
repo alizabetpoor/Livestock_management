@@ -44,7 +44,7 @@ const Table = ({
     <div className="rounded-sm border border-stroke bg-white px-5 pt-4 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="pb-2.5 flex justify-end">
         <Button
-          link="/cattle/new"
+          link={`/${entityName}/new`}
           icon={<IoMdCreate />}
           text="ساخت رکورد جدید"
         />
