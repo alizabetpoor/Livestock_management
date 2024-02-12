@@ -9,7 +9,7 @@ interface PrivateRouteProps {
 const PrivateRoute = ({ children, ...rest }: PrivateRouteProps) => {
   let { user } = useContext(AuthContext);
 
-  return !user ? <Navigate to="/login" /> : children;
+  return !user ? <Navigate to="/auth/signin" /> : children;
 };
 
 export default PrivateRoute;

@@ -9,6 +9,7 @@ import Loader from './common/Loader';
 import routes from './routes';
 import { Bounce, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import PrivateRoute from './utils/PrivateRoute';
 
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 
@@ -44,7 +45,14 @@ function App() {
         <Route path="/auth/signin" element={<SignIn />} />
         <Route path="/auth/signup" element={<SignUp />} />
         <Route element={<DefaultLayout />}>
-          <Route index element={<ECommerce />} />
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <ECommerce />
+              </PrivateRoute>
+            }
+          />
           {routes.map((routes, index) => {
             const { path, component: Component } = routes;
             return (
@@ -53,7 +61,9 @@ function App() {
                 path={path}
                 element={
                   <Suspense fallback={<Loader />}>
-                    <Component />
+                    <PrivateRoute>
+                      <Component />
+                    </PrivateRoute>
                   </Suspense>
                 }
               />
