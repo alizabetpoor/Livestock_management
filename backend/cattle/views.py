@@ -10,12 +10,16 @@ from .serializers import (
     HealthRecordCreateSerializer,
     CattleAggregateSerializer,
     CattleChartDataSerializer,
+    CattleAgeGroupSerializer,
 )
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.db.models import Avg, Sum, Count
 from django.db.models.functions import ExtractYear
 from datetime import date
+from django.db.models.expressions import RawSQL
+from django.db.models import Count, ExpressionWrapper, fields, IntegerField, Func
+from django.db.models.functions import Now
 
 
 class CattleViewSet(viewsets.ModelViewSet):
@@ -124,5 +128,45 @@ class CattleChartView(APIView):
         )
         # Serialize the chart data
         serializer = CattleChartDataSerializer(chart_data, many=True)
+
+        return Response(serializer.data)
+
+
+class Age(Func):
+    def as_sql(self, compiler, connection):
+        # SQLite version for year extraction
+        lhs, lhs_params = compiler.compile(self.get_source_expressions()[0])
+        # We assume that date_of_birth is stored in "YYYY-MM-DD" format
+        return (
+            "((strftime('%%Y', 'now') - strftime('%%Y', %s)) - (strftime('%%j', 'now') < strftime('%%j', %s)))"
+            % (lhs, lhs),
+            lhs_params,
+        )
+
+
+class CattleAgeGroupView(APIView):
+    def get(self, request, *args, **kwargs):
+        # # Raw SQL to calculate the age
+        # cattle_with_age = Cattle.objects.annotate(
+        #     age=RawSQL("EXTRACT(YEAR FROM AGE(NOW(), date_of_birth))", [])
+        # )
+
+        # Calculate age using Django's built-in database functions
+        # cattle_with_age = Cattle.objects.annotate(
+        #     age=ExpressionWrapper(
+        #         Now() - fields.DateField(), output_field=fields.IntegerField()
+        #     )
+        # )
+
+        cattle_with_age = Cattle.objects.annotate(
+            age=Age("date_of_birth", output_field=IntegerField())
+        )
+
+        # Group by age and count the number of cattle in each group
+        age_groups = (
+            cattle_with_age.values("age").annotate(count=Count("id")).order_by("age")
+        )
+        # Serialize the data
+        serializer = CattleAgeGroupSerializer(age_groups, many=True)
 
         return Response(serializer.data)

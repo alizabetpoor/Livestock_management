@@ -5,6 +5,9 @@ import * as yup from 'yup';
 import { DateError, RequiredError } from '../../constants';
 import UserService from '../../services/user.service';
 import { CattleType } from '../../interfaces/cattle';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { errorExtractor } from '../../utils/ErrorExtractor';
 
 const schema = yup
   .object({
@@ -68,6 +71,8 @@ const BreedingRecordTable = ({
     resolver: yupResolver(schema),
     defaultValues: defaultValues,
   });
+  const navigate = useNavigate();
+
   const onSubmit = (data: any) => {
     let bodyData = { ...data };
 
@@ -82,9 +87,27 @@ const BreedingRecordTable = ({
     };
 
     if (edit) {
-      UserService.editBreedingRecord(bodyData, defaultValues.id);
+      UserService.editBreedingRecord(bodyData, defaultValues.id)
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success('با موفقیت آپدیت شد');
+            navigate('/breedingRecord/list');
+          }
+        })
+        .catch((error: any) => {
+          errorExtractor(error);
+        });
     } else {
-      UserService.createBreedingRecord(bodyData);
+      UserService.createBreedingRecord(bodyData)
+        .then((response) => {
+          if (response.status === 201) {
+            toast.success('با موفقیت ایجاد شد');
+            navigate('/breedingRecord/list');
+          }
+        })
+        .catch((error: any) => {
+          errorExtractor(error);
+        });
     }
   };
   return (

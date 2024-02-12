@@ -125,6 +125,10 @@ const getCattlesInfo = () => {
   return api.get(`/cattles/info/`);
 };
 
+const getCattlesAgeGroups = () => {
+  return api.get(`/cattles/age-groups/`);
+};
+
 const UserService = {
   getCattles,
   getCattle,
@@ -137,6 +141,7 @@ const UserService = {
   editBreed,
   deleteBreed,
   getBreedingRecords,
+  getCattlesAgeGroups,
   deleteBreedingRecord,
   getHealthRecords,
   deleteHealthRecord,

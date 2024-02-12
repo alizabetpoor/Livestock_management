@@ -1,11 +1,5 @@
 import { lazy } from 'react';
 
-const Calendar = lazy(() => import('../pages/Calendar'));
-const Chart = lazy(() => import('../pages/Chart'));
-const FormElements = lazy(() => import('../pages/Form/FormElements'));
-const FormLayout = lazy(() => import('../pages/Form/FormLayout'));
-const Profile = lazy(() => import('../pages/Profile'));
-const Settings = lazy(() => import('../pages/Settings'));
 const CattleList = lazy(() => import('../pages/Cattle/List'));
 const CattleNew = lazy(() => import('../pages/Cattle/New'));
 const CattleView = lazy(() => import('../pages/Cattle/View'));
@@ -26,30 +20,8 @@ const BreedingRecordList = lazy(() => import('../pages/BreedingRecord/List'));
 const BreedingRecordView = lazy(() => import('../pages/BreedingRecord/View'));
 const BreedingRecordNew = lazy(() => import('../pages/BreedingRecord/New'));
 const BreedingRecordEdit = lazy(() => import('../pages/BreedingRecord/Edit'));
-const Alerts = lazy(() => import('../pages/UiElements/Alerts'));
-const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
 
 const coreRoutes = [
-  {
-    path: '/calendar',
-    title: 'Calender',
-    component: Calendar,
-  },
-  {
-    path: '/profile',
-    title: 'Profile',
-    component: Profile,
-  },
-  {
-    path: '/forms/form-elements',
-    title: 'Forms Elements',
-    component: FormElements,
-  },
-  {
-    path: '/forms/form-layout',
-    title: 'Form Layouts',
-    component: FormLayout,
-  },
   {
     path: '/cattle/list',
     title: 'گله',
@@ -149,26 +121,6 @@ const coreRoutes = [
     path: '/breedingRecord/new',
     title: 'ایجاد رکورد',
     component: BreedingRecordNew,
-  },
-  {
-    path: '/settings',
-    title: 'Settings',
-    component: Settings,
-  },
-  {
-    path: '/chart',
-    title: 'Chart',
-    component: Chart,
-  },
-  {
-    path: '/ui/alerts',
-    title: 'Alerts',
-    component: Alerts,
-  },
-  {
-    path: '/ui/buttons',
-    title: 'Buttons',
-    component: Buttons,
   },
 ];
 

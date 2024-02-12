@@ -27,6 +27,7 @@ from cattle.views import (
     HealthRecordViewSet,
     CattleAggregateView,
     CattleChartView,
+    CattleAgeGroupView,
 )
 from breed.views import BreedViewSet
 from jwtConfig.views import MyTokenObtainPairView
@@ -67,6 +68,11 @@ urlpatterns = (
             "api/v1/cattles/chart-data/",
             CattleChartView.as_view(),
             name="cattle-chart-data",
+        ),
+        path(
+            "api/v1/cattles/age-groups/",
+            CattleAgeGroupView.as_view(),
+            name="cattle-age-groups",
         ),
         path("admin/", admin.site.urls),
         path("api/v1/", include(router.urls)),

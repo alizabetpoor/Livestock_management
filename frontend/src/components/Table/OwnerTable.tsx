@@ -4,6 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { RequiredError } from '../../constants';
 import UserService from '../../services/user.service';
+import { useNavigate } from 'react-router-dom';
+import { errorExtractor } from '../../utils/ErrorExtractor';
+import { toast } from 'react-toastify';
 
 const phoneRegExp = /09(1[0-9]|3[1-9]|2[1-9])-?[0-9]{3}-?[0-9]{4}/;
 const emialRegExp = /[a-zA-Z0-9.-]+@[a-z-]+\.[a-z]{2,3}/;
@@ -45,11 +48,31 @@ const OwnerTable = ({ defaultValues, edit }: OwnerTableProps) => {
     resolver: yupResolver(schema),
     defaultValues: defaultValues,
   });
+  const navigate = useNavigate();
+
   const onSubmit = (data: any) => {
     if (edit) {
-      UserService.editOwner(data, defaultValues.id);
+      UserService.editOwner(data, defaultValues.id)
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success('با موفقیت آپدیت شد');
+            navigate('/owner/list');
+          }
+        })
+        .catch((error: any) => {
+          errorExtractor(error);
+        });
     } else {
-      UserService.createOwner(data);
+      UserService.createOwner(data)
+        .then((response) => {
+          if (response.status === 201) {
+            toast.success('با موفقیت ایجاد شد');
+            navigate('/owner/list');
+          }
+        })
+        .catch((error: any) => {
+          errorExtractor(error);
+        });
     }
   };
   return (

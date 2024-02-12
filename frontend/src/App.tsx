@@ -7,6 +7,8 @@ import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Loader from './common/Loader';
 import routes from './routes';
+import { Bounce, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 
@@ -25,6 +27,18 @@ function App() {
         position="top-right"
         reverseOrder={false}
         containerClassName="overflow-auto"
+      />
+      <ToastContainer
+        position="top-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
       />
       <Routes>
         <Route path="/auth/signin" element={<SignIn />} />

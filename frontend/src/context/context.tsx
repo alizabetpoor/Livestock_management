@@ -2,6 +2,7 @@ import { createContext, useState, useEffect, ReactNode } from 'react';
 import jwtDecode from 'jwt-decode';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 interface AuthContextValueType {
   user: any;
@@ -39,16 +40,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const navigate = useNavigate();
 
   let loginUser = async (username: string, password: string) => {
-    // e.preventDefault()
-    // const response = await fetch('http://127.0.0.1:8000/api/v1/auth/jwt/create', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({username: e.target.username.value, password: e.target.password.value })
-    // });
-
-    // let data = await response.json();
     api
       .post('/auth/jwt/create', {
         username,
@@ -57,12 +48,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       .then((response) => {
         if (response.data.access) {
           localStorage.setItem('user', JSON.stringify(response.data));
+          toast.success('با موفقیت وارد شدید');
           setAuthTokens(response.data);
           setUser(jwtDecode(response.data.access));
           navigate('/');
         } else {
-          alert('Something went wrong while logging in the user!');
+          toast.error('نام کاربری یا رمز عبور اشتباه میباشد.');
         }
+      })
+      .catch((error) => {
+        toast.error('نام کاربری یا رمز عبور اشتباه میباشد.');
       });
   };
 
@@ -71,7 +66,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     localStorage.removeItem('user');
     setAuthTokens(null);
     setUser(null);
-    navigate('/login');
+    navigate('/auth/signin');
   };
 
   // const updateToken = async () => {

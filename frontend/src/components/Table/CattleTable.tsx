@@ -11,7 +11,9 @@ import {
 import { OwnerType } from '../../interfaces/owner';
 import { BreedType } from '../../interfaces/breed';
 import UserService from '../../services/user.service';
-import { CattleType } from '../../interfaces/cattle';
+import { toast } from 'react-toastify';
+import { errorExtractor } from '../../utils/ErrorExtractor';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup
   .object({
@@ -63,6 +65,8 @@ const CattleTable = ({
   defaultValues,
   edit,
 }: CattleTableProps) => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -87,9 +91,27 @@ const CattleTable = ({
         formData.append(key, bodyData[key] === null ? '' : bodyData[key]);
       }
       if (edit) {
-        UserService.editCattle(formData, defaultValues.id);
+        UserService.editCattle(formData, defaultValues.id)
+          .then((response) => {
+            if (response.status === 200) {
+              toast.success('با موفقیت آپدیت شد');
+              navigate('/cattle/list');
+            }
+          })
+          .catch((error: any) => {
+            errorExtractor(error);
+          });
       } else {
-        UserService.createCattle(formData);
+        UserService.createCattle(formData)
+          .then((response) => {
+            if (response.status === 201) {
+              toast.success('با موفقیت ایجاد شد');
+              navigate('/cattle/list');
+            }
+          })
+          .catch((error: any) => {
+            errorExtractor(error);
+          });
       }
     } else {
       bodyData = { ...bodyData, photo: null };
@@ -97,9 +119,27 @@ const CattleTable = ({
         formData.append(key, bodyData[key] === null ? '' : bodyData[key]);
       }
       if (edit) {
-        UserService.editCattle(formData, defaultValues.id);
+        UserService.editCattle(formData, defaultValues.id)
+          .then((response) => {
+            if (response.status === 200) {
+              toast.success('با موفقیت آپدیت شد');
+              navigate('/cattle/list');
+            }
+          })
+          .catch((error: any) => {
+            errorExtractor(error);
+          });
       } else {
-        UserService.createCattle(formData);
+        UserService.createCattle(formData)
+          .then((response) => {
+            if (response.status === 201) {
+              toast.success('با موفقیت ایجاد شد');
+              navigate('/cattle/list');
+            }
+          })
+          .catch((error: any) => {
+            errorExtractor(error);
+          });
       }
     }
   };

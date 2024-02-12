@@ -1,14 +1,7 @@
 import { useEffect, useState } from 'react';
-import CardFour from '../../components/CardFour.tsx';
 import CardOne from '../../components/CardOne.tsx';
-import CardThree from '../../components/CardThree.tsx';
-import CardTwo from '../../components/CardTwo.tsx';
 import ChartOne from '../../components/ChartOne.tsx';
 import ChartThree from '../../components/ChartThree.tsx';
-import ChartTwo from '../../components/ChartTwo.tsx';
-import ChatCard from '../../components/ChatCard.tsx';
-import MapOne from '../../components/MapOne.tsx';
-import TableOne from '../../components/TableOne.tsx';
 import UserService from '../../services/user.service.ts';
 
 const cardsInfo = [
@@ -30,7 +23,7 @@ export interface ICattlesInfo {
 
 const ECommerce = () => {
   const [cattlesInfo, setCattlesInfo] = useState<ICattlesInfo | null>(null);
-
+  const [ageChartData, setAgeChartData] = useState([]);
   useEffect(() => {
     UserService.getCattlesInfo()
       .then((response) => {
@@ -39,6 +32,12 @@ const ECommerce = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    UserService.getCattlesAgeGroups()
+      .then((response) => {
+        setAgeChartData(response.data);
+      })
+      .catch((error) => {});
   }, []);
   return (
     <>
@@ -54,15 +53,9 @@ const ECommerce = () => {
       </div>
 
       <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
-        <ChartOne />
-        <ChartTwo />
-        {cattlesInfo ? <ChartThree cattlesInfo={cattlesInfo} /> : null}
+        {ageChartData?.length ? <ChartOne data={ageChartData} /> : null}
 
-        <MapOne />
-        <div className="col-span-12 xl:col-span-8">
-          <TableOne />
-        </div>
-        <ChatCard />
+        {cattlesInfo ? <ChartThree cattlesInfo={cattlesInfo} /> : null}
       </div>
     </>
   );

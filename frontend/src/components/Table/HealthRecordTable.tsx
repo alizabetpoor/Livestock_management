@@ -5,6 +5,9 @@ import * as yup from 'yup';
 import { DateError, RequiredError } from '../../constants';
 import UserService from '../../services/user.service';
 import { CattleType } from '../../interfaces/cattle';
+import { useNavigate } from 'react-router-dom';
+import { errorExtractor } from '../../utils/ErrorExtractor';
+import { toast } from 'react-toastify';
 
 const schema = yup
   .object({
@@ -37,6 +40,8 @@ const HealthRecordTable = ({
     resolver: yupResolver(schema),
     defaultValues: defaultValues,
   });
+  const navigate = useNavigate();
+
   const onSubmit = (data: any) => {
     let bodyData = { ...data };
 
@@ -48,9 +53,27 @@ const HealthRecordTable = ({
     bodyData = { ...bodyData, checkup_date: date };
 
     if (edit) {
-      UserService.editHealthRecord(bodyData, defaultValues.id);
+      UserService.editHealthRecord(bodyData, defaultValues.id)
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success('با موفقیت آپدیت شد');
+            navigate('/healthRecord/list');
+          }
+        })
+        .catch((error: any) => {
+          errorExtractor(error);
+        });
     } else {
-      UserService.createHealthRecord(bodyData);
+      UserService.createHealthRecord(bodyData)
+        .then((response) => {
+          if (response.status === 201) {
+            toast.success('با موفقیت ایجاد شد');
+            navigate('/healthRecord/list');
+          }
+        })
+        .catch((error: any) => {
+          errorExtractor(error);
+        });
     }
   };
   return (

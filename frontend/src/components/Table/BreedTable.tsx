@@ -4,6 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { NumberError, RequiredError } from '../../constants';
 import UserService from '../../services/user.service';
+import { useNavigate } from 'react-router-dom';
+import { errorExtractor } from '../../utils/ErrorExtractor';
+import { toast } from 'react-toastify';
 
 const schema = yup
   .object({
@@ -39,11 +42,31 @@ const BreedTable = ({ defaultValues, edit }: BreedTableProps) => {
     resolver: yupResolver(schema),
     defaultValues: defaultValues,
   });
+  const navigate = useNavigate();
+
   const onSubmit = (data: any) => {
     if (edit) {
-      UserService.editBreed(data, defaultValues.id);
+      UserService.editBreed(data, defaultValues.id)
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success('با موفقیت آپدیت شد');
+            navigate('/breed/list');
+          }
+        })
+        .catch((error: any) => {
+          errorExtractor(error);
+        });
     } else {
-      UserService.createBreed(data);
+      UserService.createBreed(data)
+        .then((response) => {
+          if (response.status === 201) {
+            toast.success('با موفقیت ایجاد شد');
+            navigate('/breed/list');
+          }
+        })
+        .catch((error: any) => {
+          errorExtractor(error);
+        });
     }
   };
   return (

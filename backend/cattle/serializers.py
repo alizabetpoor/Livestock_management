@@ -71,3 +71,8 @@ class CattleChartDataSerializer(serializers.Serializer):
     breed__name = serializers.CharField()
     gender = serializers.CharField()
     count = serializers.IntegerField()
+
+
+class CattleAgeGroupSerializer(serializers.Serializer):
+    age = serializers.CharField()
+    count = serializers.IntegerField()
