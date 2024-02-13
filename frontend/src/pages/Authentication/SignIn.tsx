@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from '../../context/context';
+import liveStockImage from '../../images/Livestockfarming.jpeg';
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
@@ -14,14 +15,18 @@ const SignIn = () => {
   return (
     <>
       <div className="bg-gray-100 flex flex-row-reverse justify-center items-center h-screen">
-        <div className="w-1/2 h-screen hidden lg:block">
+        <div className="w-1/2 h-screen hidden lg:block relative">
+          <div className="w-full h-full absolute left-0 top-0 bg-black-2 opacity-40"></div>
           <img
-            src="https://placehold.co/800x/667fff/ffffff.png?text=Your+Image&font=Montserrat"
+            src={liveStockImage}
             alt="Placeholder Image"
             className="object-cover w-full h-full"
           />
         </div>
         <div className="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
+          <h1 className="text-title-xxl text-center mb-10">
+            سیستم مدیریت گاوداری
+          </h1>
           <h1 className="text-2xl font-semibold mb-4">ورود</h1>
           <form onSubmit={handleLogin}>
             <div className="mb-4">

@@ -3,12 +3,31 @@ import CardOne from '../../components/CardOne.tsx';
 import ChartOne from '../../components/ChartOne.tsx';
 import ChartThree from '../../components/ChartThree.tsx';
 import UserService from '../../services/user.service.ts';
+import { FaWeightHanging, FaBirthdayCake } from 'react-icons/fa';
+import { AiFillDollarCircle } from 'react-icons/ai';
+import { FaSackDollar } from 'react-icons/fa6';
 
 const cardsInfo = [
-  { text: 'وزن میانگین دام ها', name: 'average_weight_of_cattles' },
-  { text: 'سن میانگین دام ها', name: 'average_age_of_cattles' },
-  { text: 'قیمت میانگین دام ها', name: 'average_price_of_cattles' },
-  { text: 'قیمت کل دام ها', name: 'total_price_of_cattles' },
+  {
+    text: 'وزن میانگین دام ها',
+    name: 'average_weight_of_cattles',
+    icon: <FaWeightHanging className="fill-primary dark:fill-white" />,
+  },
+  {
+    text: 'سن میانگین دام ها',
+    name: 'average_age_of_cattles',
+    icon: <FaBirthdayCake className="fill-primary dark:fill-white" />,
+  },
+  {
+    text: 'قیمت میانگین دام ها',
+    name: 'average_price_of_cattles',
+    icon: <AiFillDollarCircle className="fill-primary dark:fill-white" />,
+  },
+  {
+    text: 'قیمت کل دام ها',
+    name: 'total_price_of_cattles',
+    icon: <FaSackDollar className="fill-primary dark:fill-white" />,
+  },
 ];
 
 export interface ICattlesInfo {
@@ -47,6 +66,7 @@ const ECommerce = () => {
               <CardOne
                 data={cattlesInfo[data.name as keyof ICattlesInfo]}
                 hintText={data.text}
+                icon={data.icon}
               />
             ))
           : null}
