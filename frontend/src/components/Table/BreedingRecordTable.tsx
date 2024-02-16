@@ -112,7 +112,9 @@ const BreedingRecordTable = ({
   };
   return (
     <>
-      <Breadcrumb pageName="افزودن سابقه پرورش" />
+      <Breadcrumb
+        pageName={`${edit ? 'آپدیت سابقه پرورش' : 'افزودن سابقه پرورش'}`}
+      />
 
       <div className="flex flex-col gap-9">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

@@ -71,7 +71,7 @@ const BreedTable = ({ defaultValues, edit }: BreedTableProps) => {
   };
   return (
     <>
-      <Breadcrumb pageName="افزودن نژاد" />
+      <Breadcrumb pageName={`${edit ? 'آپدیت مشخصات نژاد' : 'افزودن نژاد'}`} />
 
       <div className="flex flex-col gap-9">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

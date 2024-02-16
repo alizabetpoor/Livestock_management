@@ -145,7 +145,7 @@ const CattleTable = ({
   };
   return (
     <>
-      <Breadcrumb pageName="افزودن گاو" />
+      <Breadcrumb pageName={`${edit ? 'آپدیت مشخصات گاو' : 'افزودن گاو'}`} />
 
       <div className="flex flex-col gap-9">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">

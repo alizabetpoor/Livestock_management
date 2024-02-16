@@ -77,7 +77,7 @@ const OwnerTable = ({ defaultValues, edit }: OwnerTableProps) => {
   };
   return (
     <>
-      <Breadcrumb pageName="افزودن صاحب" />
+      <Breadcrumb pageName={`${edit ? 'آپدیت مشخصات صاحب' : 'افزودن صاحب'}`} />
 
       <div className="flex flex-col gap-9">
         <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
