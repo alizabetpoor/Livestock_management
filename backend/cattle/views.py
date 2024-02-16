@@ -24,10 +24,9 @@ from django.db.models.functions import Now
 
 class CattleViewSet(viewsets.ModelViewSet):
     queryset = Cattle.objects.all()
-    # serializer_class = CattleSerializer
 
     def get_serializer_class(self):
-        if self.request.method == "POST":
+        if self.request.method == "POST" or self.request.method == "PATCH":
             return CattleCreateSerializer
         else:
             return CattleGetSerializer
@@ -48,7 +47,7 @@ class BreedingRecordViewSet(viewsets.ModelViewSet):
     queryset = BreedingRecord.objects.all()
 
     def get_serializer_class(self):
-        if self.request.method == "POST":
+        if self.request.method == "POST" or self.request.method == "PATCH":
             return BreedingRecordCreateSerializer
         else:
             return BreedingRecordGetSerializer
@@ -58,7 +57,7 @@ class HealthRecordViewSet(viewsets.ModelViewSet):
     queryset = HealthRecord.objects.all()
 
     def get_serializer_class(self):
-        if self.request.method == "POST":
+        if self.request.method == "POST" or self.request.method == "PATCH":
             return HealthRecordCreateSerializer
         else:
             return HealthRecordGetSerializer
